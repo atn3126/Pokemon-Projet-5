@@ -66,7 +66,7 @@ int main()
                 window.draw(pg.GetSprite(i, j));
             }
         }
-        window.clear();
+
         //window.draw(shape);
         window.draw(perso_sprite);
         window.draw(rock1_sprite);

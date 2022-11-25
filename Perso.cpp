@@ -7,14 +7,15 @@
 
 Perso::Perso(std::string nom_texture)
 {
-    x = 20;
-    y = 20;
+    x = 58;
+    y = 55;
     if (!this->texture_perso.loadFromFile(nom_texture))
     {
         std::cout << "Erreur de chargement de la texture du personnage" << std::endl;
     }
     this->sprite_perso.setTexture(this->texture_perso);
-    this->sprite_perso.setScale(sf::Vector2f(2.0f, 2.0f));
+    this->sprite_perso.setScale(sf::Vector2f(1.0f, 1.0f));
+    this->sprite_perso.setPosition(x, y);
     this->sprite_perso.setTextureRect(sf::IntRect(30, 0, 30, 30));
 }
 Perso::~Perso()
@@ -79,13 +80,13 @@ char Perso::animation(char direction)
     switch (direction)
     {
     case 'r':   //droite
-        this->sprite_perso.setTextureRect(sf::IntRect(0, 63, 30, 30));
+        this->sprite_perso.setTextureRect(sf::IntRect(0, 64, 30, 30));
         return 'r';
     case 'l':   //gauche
-        this->sprite_perso.setTextureRect(sf::IntRect(0, 30, 30, 30));
+        this->sprite_perso.setTextureRect(sf::IntRect(0, 32, 30, 30));
         return 'l';
     case 'u'://En haut
-        this->sprite_perso.setTextureRect(sf::IntRect(0, 95, 30, 30));
+        this->sprite_perso.setTextureRect(sf::IntRect(0, 96, 30, 30));
         return 'u';
     case 'd':   //En bas
         this->sprite_perso.setTextureRect(sf::IntRect(0, 0, 30, 30));
@@ -100,13 +101,13 @@ char Perso::pause(char last_direction)
     switch (last_direction)
     {
     case 'r':   //regarde a droite
-        this->sprite_perso.setTextureRect(sf::IntRect(30, 63, 30, 30));
+        this->sprite_perso.setTextureRect(sf::IntRect(30, 64, 30, 30));
         return 'r';
     case 'l':   //regarde a gauche
         this->sprite_perso.setTextureRect(sf::IntRect(30, 32, 30, 30));
         return 'l';
     case 'u':   //regarde en haut
-        this->sprite_perso.setTextureRect(sf::IntRect(30, 95, 30, 30));
+        this->sprite_perso.setTextureRect(sf::IntRect(30, 96, 30, 30));
         return 'u';
     case 'd':   //regarde en bas
         this->sprite_perso.setTextureRect(sf::IntRect(30, 0, 30, 30));
