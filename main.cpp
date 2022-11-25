@@ -26,6 +26,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "SFML works!");
     Playground pg;
 
+    //test
+
     pg.load();
 
     Perso poke("texture/trainer.png");
