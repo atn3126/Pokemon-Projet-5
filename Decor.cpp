@@ -28,6 +28,21 @@ void Decor::change_collision(bool have_collision)
 {
 
 }
+void Decor::change_texture(char new_sprite)
+{
+    switch (new_sprite)
+    {
+        case 'h':
+            this->sprite_decor.setTextureRect(sf::IntRect(0, 15, 15, 15));
+
+        case 'a':
+            this->sprite_decor.setTextureRect(sf::IntRect(0, 45, 30, 45));
+
+    default:
+        break;
+    }
+    
+}
 
 sf::Sprite Decor::sprite()
 {
