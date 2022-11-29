@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{be735360-2826-4318-a224-ca55d8186532}</ProjectGuid>
     <RootNamespace>Projet5CSFML</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -131,19 +131,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Decor.cpp" />
+    <ClCompile Include="Decor_Tile.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Interaction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perso.cpp" />
     <ClCompile Include="Playground.cpp" />
+    <ClCompile Include="Trainer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="const.h" />
     <ClInclude Include="Decor.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Decor_Tile.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Interaction.h" />
     <ClInclude Include="Perso.h" />
     <ClInclude Include="Playground.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Trainer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="map_test.tmj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

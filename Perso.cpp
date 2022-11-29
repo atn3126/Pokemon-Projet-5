@@ -1,14 +1,10 @@
-#include <iostream>
-#include <string>
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "Perso.h"
 
-Perso::Perso(std::string nom_texture)
+Perso::Perso(std::string nom_texture, int i, int j)
 {
-    x = 58;
-    y = 55;
+    this->x = i * SIZE_TILE;
+    this->y = j * SIZE_TILE;
+    this->last = 'd';
     if (!this->texture_perso.loadFromFile(nom_texture))
     {
         std::cout << "Erreur de chargement de la texture du personnage" << std::endl;
@@ -26,17 +22,20 @@ void Perso::move()
 {
     if (sf::Keyboard::isKeyPressed) //si n'importe quel touche est appuyé
     {
-        if (this->x - SIZE > 0)
+        if (this->x - SIZE_TILE > -SIZE_TILE)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
-                // la touche "flèche gauche" est enfoncée : on bouge le personnage a gauche
+
                 this->x -= SPEED;
                 this->sprite_perso.setPosition(sf::Vector2f(x, y));
                 this->last = this->animation('l');
+
             }
         }
-        if (this->x + SIZE < SCREEN_WIDTH)
+
+
+        if (this->x + SIZE_TILE < WINDOW_SIZE_X)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
@@ -46,7 +45,15 @@ void Perso::move()
                 this->last = this->animation('r');
             }
         }
-        if (this->y + SIZE < SCREEN_HEIGHT)
+
+
+
+
+
+
+
+
+        if (this->y + SIZE_TILE < WINDOW_SIZE_Y)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
@@ -56,7 +63,7 @@ void Perso::move()
                 this->last = this->animation('d');
             }
         }
-        if (this->y - SIZE > 0)
+        if (this->y - SIZE_TILE > -SIZE_TILE)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {

@@ -12,6 +12,7 @@ class Decor
 
 		void new_emplacement(int x, int y);
 		void change_collision(bool have_collision);
+		void change_texture(char new_sprite);
 		sf::Sprite sprite();
 
 	private:

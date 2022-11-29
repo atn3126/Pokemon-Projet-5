@@ -1,11 +1,15 @@
 #include "Playground.h"
-#include "macro.h"
 #include "Perso.h"
 #include "const.h"
 #include "Decor.h"
+#include "Decor_Tile.h"
+#include "Interaction.h"
+#include "Game.h"
+#include "Trainer.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 
 
 /*
@@ -23,18 +27,38 @@ sprite.setOrigin(sf::Vector2f(25.f, 25.f));                     //change le poin
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "SFML works!");
     Playground pg;
+    window.setFramerateLimit(60);
 
-    //test
 
     pg.load();
 
-    Perso poke("texture/trainer.png");
+    Perso poke("texture/trainer.png", 2 , 2);
+    Trainer trainer("texture/trainer_adv.png", 5 , 5);
     Decor rock1("texture/pokemon_rock.png", false, 300, 300);
    
     window.setFramerateLimit(30);
   
+    Decor_Tile herbe1('h', false, 20, 16);
+    Decor_Tile arbre1('a', false, 8, 4);
+
+
+    sf::Texture texture;
+    sf::Sprite sprite_main;
+    if (!texture.loadFromFile("texture/main_interaction.png"))
+    {
+        std::cout << "Erreur de chargement de la texture de la main" << std::endl;
+    }
+    sprite_main.setTexture(texture);
+
+
+
+
+
+
+
+
+    sf::Clock clock;    
     while (window.isOpen())
     {
         if (start = true)
@@ -43,21 +67,21 @@ int main()
             while (window.pollEvent(event))
             {
                 switch (event.type)
-                {
                 case sf::Event::Closed:
                     window.close();
                     break;
-                    //test
+
                 case sf::Event::KeyPressed:
+                    clock.restart();
+                    
                     poke.move();
+
                     break;
 
-                default:
-                    poke.pause(poke.last);
-                    break;
-
-                }
-            }
+                    default:
+                        poke.pause(poke.last);
+                        break;
+                    
             sf::Sprite perso_sprite = poke.sprite();
             sf::Sprite rock1_sprite = rock1.sprite();
 
@@ -90,6 +114,34 @@ int main()
                 }
             }
         }
+        sf::Sprite perso_sprite = poke.sprite();
+        sf::Sprite trainer_sprite = trainer.sprite();
+        sf::Sprite rock1_sprite = rock1.sprite();
+        sf::Sprite herbe1_sprite = herbe1.sprite();
+        sf::Sprite arbre1_sprite = arbre1.sprite();
+
+        sf::FloatRect perso_box = perso_sprite.getGlobalBounds();
+        sf::FloatRect rock1_box = rock1_sprite.getGlobalBounds();
+
+        
+        window.clear();
+        for (int i = 0; i < WINDOW_SIZE_Y / SIZE_TILE; i++) {
+            for (int j = 0; j < WINDOW_SIZE_X / SIZE_TILE; j++) {
+                window.draw(pg.GetSprite(i, j));
+            }
+        }
+        if (Interaction(poke, trainer, 2))
+        {
+            std::cout << "ui";
+            window.draw(arbre1_sprite);
+        }
+
+        
+        window.draw(herbe1_sprite);
+        window.draw(trainer_sprite);
+        window.draw(perso_sprite);
+        window.draw(rock1_sprite);
+        
         
         window.display();
     }
