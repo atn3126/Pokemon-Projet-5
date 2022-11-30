@@ -2,17 +2,28 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+using namespace sf;
 
-class Menu
+#define Max_main_menu 3
+
+class MainMenu
 {
-	public:
-		Menu();
-		~Menu();
-		int loadMenu();
-		sf::Sprite GetSprite();
-		bool start();
-	private:
-		sf::Texture texture;
-		sf::Sprite sprite;
+public:
+	MainMenu();
+
+	void draw(sf::RenderWindow& window);
+	void MoveUp();
+	void MoveDown();
+
+	int MainMenuPressed() {
+		return MainMenuSelected;
+	}
+	~MainMenu();
+
+private:
+
+	int MainMenuSelected;
+	Font font;
+	Text mainMenu[Max_main_menu];
 
 };

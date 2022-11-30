@@ -1,33 +1,68 @@
 #include "Menu.h"
 
-
-Menu::Menu()
+MainMenu::MainMenu()
 {
-   
+	if (!font.loadFromFile("font/PKMN RBYGSC.ttf")) {
+		std::cout << "error";
+	}
+
+	//Play
+	mainMenu[0].setFont(font);
+	mainMenu[0].setFillColor(Color::White);
+	mainMenu[0].setString("Play");
+	mainMenu[0].setCharacterSize(70);
+	mainMenu[0].setPosition(305, 300);
+	//Options
+	mainMenu[1].setFont(font);
+	mainMenu[1].setFillColor(Color::White);
+	mainMenu[1].setString("Options");
+	mainMenu[1].setCharacterSize(70);
+	mainMenu[1].setPosition(305, 400);
+	//Exit
+	mainMenu[2].setFont(font);
+	mainMenu[2].setFillColor(Color::White);
+	mainMenu[2].setString("Exit");
+	mainMenu[2].setCharacterSize(70);
+	mainMenu[2].setPosition(305, 500);
+
+	MainMenuSelected = 0;
 }
 
-Menu::~Menu()
+void MainMenu::draw(sf::RenderWindow& window)
 {
+	for (int i = 0; i < Max_main_menu; ++i) {
+		window.draw(mainMenu[i]);
+	}
+
 }
 
-int Menu::loadMenu()
+void MainMenu::MoveUp()
 {
-    if (!this->texture.loadFromFile("MainMenu.png"))
-    {
-        std::cout << "erreur d'image" << std::endl;
-        return EXIT_FAILURE;
-    }
-    return 0;
+	if (MainMenuSelected - 1 >= -1) {
+		mainMenu[MainMenuSelected].setFillColor(Color::White);
+
+		MainMenuSelected--;
+		if (MainMenuSelected == -1) {
+			MainMenuSelected = 2;
+		}
+		mainMenu[MainMenuSelected].setFillColor(Color::Blue);
+	}
 }
 
-sf::Sprite Menu::GetSprite()
+void MainMenu::MoveDown()
 {
-    this->sprite.setTexture(this->texture);
-    this->sprite.setScale();
-    return this->sprite;
+	if (MainMenuSelected + 1 >= 0) {
+		mainMenu[MainMenuSelected].setFillColor(Color::White);
+
+		MainMenuSelected++;
+		if (MainMenuSelected == 3) {
+			MainMenuSelected = 0;
+		}
+		mainMenu[MainMenuSelected].setFillColor(Color::Blue);
+	}
 }
 
-bool Menu::start()
+MainMenu::~MainMenu()
 {
-    return false;
+
 }
