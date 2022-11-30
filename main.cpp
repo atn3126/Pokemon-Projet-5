@@ -6,10 +6,10 @@
 #include "Interaction.h"
 #include "Game.h"
 #include "Trainer.h"
+#include "Menu.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
 
 
 /*
@@ -27,89 +27,180 @@ sprite.setOrigin(sf::Vector2f(25.f, 25.f));                     //change le poin
 
 int main()
 {
-    Playground pg;
-    window.setFramerateLimit(60);
+    //RenderWindow window(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Main Menu", Style::Default);
+    MainMenu mainMenu;
+    bool start = false;
+
+    RectangleShape background;
+    background.setSize(Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y));
+    Texture Maintexture;
+    Maintexture.loadFromFile("texture/Background.Jfif");
+    background.setTexture(&Maintexture);
+
+    RectangleShape Titre;
+    Titre.setSize(Vector2f(WINDOW_SIZE_X * 2 / 3, 200));
+    Titre.setPosition(WINDOW_SIZE_X / 6, 50.f);
+    Texture TextureTitre;
+    TextureTitre.loadFromFile("texture/Titre.png");
+    Titre.setTexture(&TextureTitre);
 
 
-    pg.load();
-
-    Perso poke("texture/trainer.png", 2 , 2);
-    Trainer trainer("texture/trainer_adv.png", 5 , 5);
-    Decor rock1("texture/pokemon_rock.png", false, 300, 300);
-    Decor_Tile herbe1('h', false, 20, 16);
-    Decor_Tile arbre1('a', false, 8, 4);
-
-
-    sf::Texture texture;
-    sf::Sprite sprite_main;
-    if (!texture.loadFromFile("texture/main_interaction.png"))
-    {
-        std::cout << "Erreur de chargement de la texture de la main" << std::endl;
-    }
-    sprite_main.setTexture(texture);
-
-
-
-
-
-
-
-
-    sf::Clock clock;    
     while (window.isOpen())
     {
-        sf::Event event;
+        window.clear();
+        Event event;
         while (window.pollEvent(event))
         {
-
-            switch (event.type)
+            if (event.type == Event::Closed)
             {
-            case sf::Event::Closed:
                 window.close();
-                break;
+            }
+            if (event.type == Event::KeyReleased)
+            {
+                if (event.key.code == Keyboard::Up)
+                {
+                    mainMenu.MoveUp();
+                    break;
+                }
 
-            case sf::Event::KeyPressed:
-                clock.restart();
-                
-                poke.move();
+                if (event.key.code == Keyboard::Down)
+                {
+                    mainMenu.MoveDown();
+                    break;
+                }
 
-                break;
+                if (event.key.code == Keyboard::Return)
+                {
+                    
+                    
 
-            default:
-                poke.pause(poke.last);
-                break;
+                    int x = mainMenu.MainMenuPressed();
+                    if (x == 0)
+                    {
+                        RenderWindow Play(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Pokemon");
+                        window.close();
+                        while (Play.isOpen())
+                        {
+                            Playground pg;
+                            Play.setFramerateLimit(60);
 
+
+                            pg.load();
+
+                            Perso poke("texture/trainer.png", 2, 2);
+                            Trainer trainer("texture/trainer_adv.png", 5, 5);
+                            Decor rock1("texture/pokemon_rock.png", false, 300, 300);
+                            Decor_Tile herbe1('h', false, 20, 16);
+                            Decor_Tile arbre1('a', false, 8, 4);
+
+
+
+
+
+                            sf::Clock clock;
+                            while (Play.isOpen())
+                            {
+                                sf::Event event;
+                                while (Play.pollEvent(event))
+                                {
+
+                                    switch (event.type)
+                                    {
+                                    case sf::Event::Closed:
+                                        Play.close();
+                                        break;
+
+                                    case sf::Event::KeyPressed:
+                                        clock.restart();
+
+                                        poke.move();
+
+                                        break;
+
+                                    default:
+                                        poke.pause(poke.last);
+                                        break;
+
+                                    }
+                                }
+                                sf::Sprite perso_sprite = poke.sprite();
+                                sf::Sprite trainer_sprite = trainer.sprite();
+                                sf::Sprite rock1_sprite = rock1.sprite();
+                                sf::Sprite herbe1_sprite = herbe1.sprite();
+                                sf::Sprite arbre1_sprite = arbre1.sprite();
+
+                                sf::FloatRect perso_box = perso_sprite.getGlobalBounds();
+                                sf::FloatRect rock1_box = rock1_sprite.getGlobalBounds();
+
+
+                                Play.clear();
+                                for (int i = 0; i < WINDOW_SIZE_Y / SIZE_TILE; i++) {
+                                    for (int j = 0; j < WINDOW_SIZE_X / SIZE_TILE; j++) {
+                                        Play.draw(pg.GetSprite(i, j));
+                                    }
+                                }
+                                if (Interaction(poke, trainer, 2))
+                                {
+                                    std::cout << "ui";
+                                    Play.draw(arbre1_sprite);
+                                }
+
+
+                                Play.draw(herbe1_sprite);
+                                Play.draw(trainer_sprite);
+                                Play.draw(perso_sprite);
+                                Play.draw(rock1_sprite);
+
+
+                                Play.display();
+                            }
+
+
+                        }
+                    }
+
+                    if (x == 1)
+                    {
+                        RenderWindow Options(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Options");
+                        while (Options.isOpen())
+                        {
+                            Event aevent;
+                            while (Options.pollEvent(aevent))
+                            {
+                                Event aevent;
+                                while (Options.pollEvent(aevent)) {
+                                    if (aevent.type == Event::Closed)
+                                    {
+                                        Options.close();
+                                    }
+                                    if (aevent.type == Event::KeyPressed)
+                                    {
+                                        if (aevent.key.code == Keyboard::Escape)
+                                        {
+                                            Options.close();
+                                        }
+                                    }
+                                }
+                                //Play.close();
+                                Options.clear();
+                                Options.display();
+                            }
+                        }
+
+                    }
+                    if (x == 2)
+                    {
+                        window.close();
+                        break;
+                    }
+
+                }
             }
         }
-        sf::Sprite perso_sprite = poke.sprite();
-        sf::Sprite trainer_sprite = trainer.sprite();
-        sf::Sprite rock1_sprite = rock1.sprite();
-        sf::Sprite herbe1_sprite = herbe1.sprite();
-        sf::Sprite arbre1_sprite = arbre1.sprite();
 
-        sf::FloatRect perso_box = perso_sprite.getGlobalBounds();
-        sf::FloatRect rock1_box = rock1_sprite.getGlobalBounds();
-
-        
-        window.clear();
-        for (int i = 0; i < WINDOW_SIZE_Y / SIZE_TILE; i++) {
-            for (int j = 0; j < WINDOW_SIZE_X / SIZE_TILE; j++) {
-                window.draw(pg.GetSprite(i, j));
-            }
-        }
-        if (Interaction(poke, trainer, 2))
-        {
-            std::cout << "ui";
-            window.draw(arbre1_sprite);
-        }
-
-        
-        window.draw(herbe1_sprite);
-        window.draw(trainer_sprite);
-        window.draw(perso_sprite);
-        window.draw(rock1_sprite);
-        
-        
+        window.draw(background);
+        window.draw(Titre);
+        mainMenu.draw(window);
         window.display();
     }
 

@@ -135,6 +135,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Interaction.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perso.cpp" />
     <ClCompile Include="Playground.cpp" />
     <ClCompile Include="Trainer.cpp" />
@@ -142,6 +143,8 @@
   <ItemGroup>
     <ClInclude Include="const.h" />
     <ClInclude Include="Decor.h" />
+    <ClInclude Include="macro.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Decor_Tile.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Interaction.h" />
