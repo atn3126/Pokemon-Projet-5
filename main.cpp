@@ -87,7 +87,7 @@ int main()
 
                             pg.load();
 
-                            Perso poke("texture/trainer.png", 2, 2);
+                            Perso poke("texture/trainer.png", 6, 16);
                             Trainer trainer("texture/trainer_adv.png", 5, 5);
                             Decor rock1("texture/pokemon_rock.png", false, 300, 300);
                             Decor_Tile herbe1('h', false, 20, 16);
@@ -134,11 +134,8 @@ int main()
 
 
                                 Play.clear();
-                                for (int i = 0; i < WINDOW_SIZE_Y / SIZE_TILE; i++) {
-                                    for (int j = 0; j < WINDOW_SIZE_X / SIZE_TILE; j++) {
-                                        Play.draw(pg.GetSprite(i, j));
-                                    }
-                                }
+                                                                        
+                                Play.draw(pg.GetSprite());
                                 if (Interaction(poke, trainer, 2))
                                 {
                                     std::cout << "ui";

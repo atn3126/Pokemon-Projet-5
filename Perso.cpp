@@ -13,6 +13,7 @@ Perso::Perso(std::string nom_texture, int i, int j)
     this->sprite_perso.setScale(sf::Vector2f(1.0f, 1.0f));
     this->sprite_perso.setPosition(x, y);
     this->sprite_perso.setTextureRect(sf::IntRect(30, 0, 30, 30));
+    std::cout << this->walls[5];
 }
 Perso::~Perso()
 {
@@ -22,7 +23,8 @@ void Perso::move()
 {
     if (sf::Keyboard::isKeyPressed) //si n'importe quel touche est appuyé
     {
-        if (this->x - SIZE_TILE > -SIZE_TILE)
+        std::cout << (this->x / 32) + (this->y / 32 * 60) << std::endl;
+        if (this->x - SIZE_TILE > -SIZE_TILE && this->walls[(this->x / 32) + (this->y / 32 * 60) - 1] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
@@ -35,7 +37,7 @@ void Perso::move()
         }
 
 
-        if (this->x + SIZE_TILE < WINDOW_SIZE_X)
+        if (this->x + SIZE_TILE < WINDOW_SIZE_X && this->walls[(this->x / 32) + (this->y / 32 * 60) + 1] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
@@ -53,7 +55,7 @@ void Perso::move()
 
 
 
-        if (this->y + SIZE_TILE < WINDOW_SIZE_Y)
+        if (this->y + SIZE_TILE < WINDOW_SIZE_Y && this->walls[(this->x / 32) + (this->y / 32 * 60) + 60] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
@@ -63,7 +65,7 @@ void Perso::move()
                 this->last = this->animation('d');
             }
         }
-        if (this->y - SIZE_TILE > -SIZE_TILE)
+        if (this->y - SIZE_TILE > -SIZE_TILE && this->walls[(this->x / 32) + (this->y / 32 * 60) - 60] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {

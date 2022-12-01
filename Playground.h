@@ -15,7 +15,7 @@ public :
 	Playground();
 	~Playground();
 	int load();
-	sf::Sprite GetSprite(int i, int j);
+	sf::Sprite GetSprite();
 
 };
 
