@@ -1,0 +1,55 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/sans titre.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
+    "fileStates": {
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/sans titre.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 621,
+                "y": 173
+            }
+        },
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/tileset3.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "assets.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "pokemon-tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5",
+    "map.height": 30,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/sans titre.tmx",
+        "assets.tsx",
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/tileset3.tsx"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/tileset3.tsx",
+        "assets.tsx",
+        "C:/Users/emaillard/Documents/GitHub/Pokemon-Projet-5/Projet 5/sans titre.tmx",
+        "pokemon-tiles.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
