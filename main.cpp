@@ -95,6 +95,7 @@ int main()
                         RenderWindow Play(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Pokemon");
                         window.close();
                         sound.stop();
+          
                         while (Play.isOpen())
                         {
                             Playground pg;
@@ -103,14 +104,15 @@ int main()
 
                             pg.load();
 
-
                             Perso poke("texture/trainer.png", 6, 16);
-                            Trainer trainer("texture/trainer_adv.png", 5, 5);
+                            Trainer trainer("texture/trainer_adv.png", 55, 15);
                             sf::Sprite perso_sprite = poke.sprite();
                             sf::Sprite trainer_sprite = trainer.sprite();
 
-
                             sf::Clock clock;
+
+                            sf::View view(sf::FloatRect(300.f, 300.f, 352.f, 352.f));
+
                             while (Play.isOpen())
                             {
                                 sf::Event event;
@@ -127,7 +129,6 @@ int main()
                                         clock.restart();
 
                                         poke.move();
-
                                         break;
 
                                     default:
@@ -137,6 +138,21 @@ int main()
                                     }
                                 }
 
+
+                                
+                                if ((poke.GetX() > 1920 - 6 * SIZE_TILE))
+                                    view.setCenter(1920 - 6 * SIZE_TILE + SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+                                else if ((poke.GetX() < 0 + 6 * SIZE_TILE))
+                                    view.setCenter(0 + 6 * SIZE_TILE - SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+                                else if ((poke.GetY() > WINDOW_SIZE_Y - 6 * SIZE_TILE))
+                                    view.setCenter(poke.GetX() + SIZE_TILE / 2, WINDOW_SIZE_Y - 6 * SIZE_TILE + SIZE_TILE / 2);
+                                else if ((poke.GetY() < 0 + 6 * SIZE_TILE))
+                                    view.setCenter(poke.GetX() + SIZE_TILE / 2, 0 + 6 * SIZE_TILE - SIZE_TILE / 2);
+                                else
+                                    view.setCenter(poke.GetX() + SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+                                
+                                
+                                Play.setView(view);
 
 
                                 Play.clear();
@@ -150,9 +166,7 @@ int main()
 
 
                                 Play.draw(trainer_sprite);
-                                Play.draw(perso_sprite);
-
-
+                                Play.draw(poke.sprite());
 
                                 Play.display();
                             }
@@ -163,31 +177,29 @@ int main()
 
                     if (x == 1)
                     {
-                        RenderWindow Options(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Options");
-                        while (Options.isOpen())
-                        {
-                            Event aevent;
-                            while (Options.pollEvent(aevent))
-                            {
-                                Event aevent;
-                                while (Options.pollEvent(aevent)) {
-                                    if (aevent.type == Event::Closed)
-                                    {
-                                        Options.close();
-                                    }
-                                    if (aevent.type == Event::KeyPressed)
-                                    {
-                                        if (aevent.key.code == Keyboard::Escape)
-                                        {
-                                            Options.close();
-                                        }
-                                    }
-                                }
-                                //Play.close();
-                                Options.clear();
-                                Options.display();
-                            }
-                        }
+                        //RenderWindow Options(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Options");
+                        //while (Options.isOpen())
+                        //{
+                        //    Event event;
+                        //    while (Options.pollEvent(event))
+                        //    {
+                        //        Event event;
+                        //        switch (event.type) {
+                        //        case Event::Closed :                                    
+                        //                Options.close();  
+                        //                break;
+                        //        case Event::KeyPressed :
+                        //                if (event.key.code == Keyboard::Escape) {
+                        //                    Options.close();
+                        //                }
+                        //        default :
+                        //            break;
+                        //        }
+                        //        //Play.close();
+                        //        Options.clear();
+                        //        Options.display();
+                        //    }
+                        //}
 
                     }
                     if (x == 2)
