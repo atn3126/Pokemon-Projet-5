@@ -23,7 +23,8 @@ void Perso::move()
 {
     if (sf::Keyboard::isKeyPressed) //si n'importe quel touche est appuyé
     {
-        if (this->x - SIZE_TILE > -SIZE_TILE /*&& this->walls[this->x*this->y-1] == 0*/)
+        std::cout << (this->x / 32) + (this->y / 32 * 60) << std::endl;
+        if (this->x - SIZE_TILE > -SIZE_TILE && this->walls[(this->x / 32) + (this->y / 32 * 60) - 1] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
@@ -36,7 +37,7 @@ void Perso::move()
         }
 
 
-        if (this->x + SIZE_TILE < WINDOW_SIZE_X /*&& this->walls[this->x * this->y + 1] == 0*/)
+        if (this->x + SIZE_TILE < WINDOW_SIZE_X && this->walls[(this->x / 32) + (this->y / 32 * 60) + 1] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
@@ -54,7 +55,7 @@ void Perso::move()
 
 
 
-        if (this->y + SIZE_TILE < WINDOW_SIZE_Y /*&& this->walls[this->x * this->y - 60] == 0*/)
+        if (this->y + SIZE_TILE < WINDOW_SIZE_Y && this->walls[(this->x / 32) + (this->y / 32 * 60) + 60] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
@@ -64,7 +65,7 @@ void Perso::move()
                 this->last = this->animation('d');
             }
         }
-        if (this->y - SIZE_TILE > -SIZE_TILE /*&& this->walls[this->x * this->y + 60] == 0*/)
+        if (this->y - SIZE_TILE > -SIZE_TILE && this->walls[(this->x / 32) + (this->y / 32 * 60) - 60] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {
