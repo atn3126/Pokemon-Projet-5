@@ -15,14 +15,13 @@ bool Interaction(Perso poke, Trainer trainer, int tile)
 
     if (poke.x > trainer.x - tile * SIZE_TILE && poke.x < trainer.x + tile * SIZE_TILE && poke.y > trainer.y - tile * SIZE_TILE&& poke.y < trainer.y + tile * SIZE_TILE)
     {
-        
         window.draw(sprite);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
         {
-             return 1;
+             return true;
         }
 
     }
-    return 0;
+    return false;
 }

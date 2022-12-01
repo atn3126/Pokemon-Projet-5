@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 
 
 /*
@@ -30,6 +32,19 @@ int main()
     //RenderWindow window(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Main Menu", Style::Default);
     MainMenu mainMenu;
     bool start = false;
+
+
+    sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("sons/pokemon_r_b.wav"))
+    {
+        std::cout << "Erreur chargement du sons";
+        return -1;
+    }
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+    sound.play();
+
+
 
     RectangleShape background;
     background.setSize(Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y));
@@ -79,6 +94,7 @@ int main()
                     {
                         RenderWindow Play(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Pokemon");
                         window.close();
+                        sound.stop();
                         while (Play.isOpen())
                         {
                             Playground pg;
@@ -87,14 +103,11 @@ int main()
 
                             pg.load();
 
+
                             Perso poke("texture/trainer.png", 6, 16);
                             Trainer trainer("texture/trainer_adv.png", 5, 5);
-                            Decor rock1("texture/pokemon_rock.png", false, 300, 300);
-                            Decor_Tile herbe1('h', false, 20, 16);
-                            Decor_Tile arbre1('a', false, 8, 4);
-
-
-
+                            sf::Sprite perso_sprite = poke.sprite();
+                            sf::Sprite trainer_sprite = trainer.sprite();
 
 
                             sf::Clock clock;
@@ -123,14 +136,7 @@ int main()
 
                                     }
                                 }
-                                sf::Sprite perso_sprite = poke.sprite();
-                                sf::Sprite trainer_sprite = trainer.sprite();
-                                sf::Sprite rock1_sprite = rock1.sprite();
-                                sf::Sprite herbe1_sprite = herbe1.sprite();
-                                sf::Sprite arbre1_sprite = arbre1.sprite();
 
-                                sf::FloatRect perso_box = perso_sprite.getGlobalBounds();
-                                sf::FloatRect rock1_box = rock1_sprite.getGlobalBounds();
 
 
                                 Play.clear();
@@ -139,14 +145,13 @@ int main()
                                 if (Interaction(poke, trainer, 2))
                                 {
                                     std::cout << "ui";
-                                    Play.draw(arbre1_sprite);
                                 }
 
 
-                                Play.draw(herbe1_sprite);
+
                                 Play.draw(trainer_sprite);
                                 Play.draw(perso_sprite);
-                                Play.draw(rock1_sprite);
+
 
 
                                 Play.display();
