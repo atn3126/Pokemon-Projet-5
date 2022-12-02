@@ -175,8 +175,8 @@ int main()
                                     if (Interaction(poke, trainer, 2))
                                     {
                                         battle = true;
+                                        btl.reload();
                                         Play.setView(view2);
-                                        std::cout << "ui";
                                     }
 
 

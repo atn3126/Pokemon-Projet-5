@@ -2,8 +2,13 @@
 
 Battle::Battle()
 {
-	int pikachuLife = 120;
-	int evoliLife = 120;
+}
+
+void Battle::reload()
+{
+	pikachuLife = 120;
+	evoliLife = 120;
+	multiplier = 1;
 }
 
 int Battle::load()

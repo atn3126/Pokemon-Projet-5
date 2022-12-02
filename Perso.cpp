@@ -13,7 +13,6 @@ Perso::Perso(std::string nom_texture, int i, int j)
     this->sprite_perso.setScale(sf::Vector2f(1.0f, 1.0f));
     this->sprite_perso.setPosition(this->x, this->y);
     this->sprite_perso.setTextureRect(sf::IntRect(30, 0, 30, 30));
-    std::cout << this->walls[5];
 }
 Perso::~Perso()
 {
@@ -35,7 +34,6 @@ void Perso::move()
 {
     if (sf::Keyboard::isKeyPressed) //si n'importe quel touche est appuyé
     {
-        std::cout << (this->x / 32) + (this->y / 32 * 60) << std::endl;
         if (this->x - SIZE_TILE > -SIZE_TILE && this->walls[(this->x / 32) + (this->y / 32 * 60) - 1] == 0)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

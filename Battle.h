@@ -10,6 +10,7 @@ class Battle
 	public :
 
 		Battle();
+		void reload();
 		int load();
 		void draw(sf::RenderWindow& window);
 		void MoveUp();
