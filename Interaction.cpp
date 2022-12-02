@@ -9,7 +9,7 @@ bool Interaction(Perso poke, Trainer trainer, int tile)
     {
         std::cout << "Erreur de chargement de la texture de la main" << std::endl;
     }
-    sprite.setPosition(WINDOW_SIZE_X / 2 - (SIZE_TILE * 4), WINDOW_SIZE_Y - (SIZE_TILE * 9));
+    sprite.setPosition(poke.x, poke.y);
     sprite.setScale(1.0f, 1.0f);
     sprite.setTexture(texture);
 

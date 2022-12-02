@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="battleSprites.cpp" />
     <ClCompile Include="Decor.cpp" />
     <ClCompile Include="Decor_Tile.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -152,6 +154,8 @@
     <ClCompile Include="Trainer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="battleSprites.h" />
     <ClInclude Include="const.h" />
     <ClInclude Include="Decor.h" />
     <ClInclude Include="macro.h" />
