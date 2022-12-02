@@ -11,6 +11,8 @@ class Perso
 	public:
 		Perso(std::string nom_texture, int x, int y);
 		~Perso();
+        int GetX();
+        int GetY();
 
 		void move();
 		char animation(char direction);

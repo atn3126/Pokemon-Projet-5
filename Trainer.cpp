@@ -4,7 +4,7 @@
 Trainer::Trainer(std::string nom_texture, int i, int j)
 {
     this->x = i * SIZE_TILE;
-    this->y = j * SIZE_TILE;
+    this->y = j * SIZE_TILE - 16;
 
     if (!this->texture_trainer.loadFromFile(nom_texture))
     {

@@ -24,6 +24,5 @@ int Playground::load()
 sf::Sprite Playground::GetSprite()
 {
     this->sprite.setTexture(this->texture);
-    this->sprite.setScale(1.575f, 1.575f);
     return this->sprite;
 }

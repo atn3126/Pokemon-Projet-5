@@ -1,3 +1,5 @@
+#include "Battle.h"
+#include "battleSprites.h"
 #include "Playground.h"
 #include "Perso.h"
 #include "const.h"
@@ -31,7 +33,9 @@ int main()
 {
     //RenderWindow window(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Main Menu", Style::Default);
     MainMenu mainMenu;
+
     bool start = false;
+    bool battle = false;
 
 
     sf::SoundBuffer buffer;
@@ -49,12 +53,12 @@ int main()
     RectangleShape background;
     background.setSize(Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y));
     Texture Maintexture;
-    Maintexture.loadFromFile("texture/Background.Jfif");
+    Maintexture.loadFromFile("texture/Background1.png");
     background.setTexture(&Maintexture);
 
     RectangleShape Titre;
     Titre.setSize(Vector2f(WINDOW_SIZE_X * 2 / 3, 200));
-    Titre.setPosition(WINDOW_SIZE_X / 6, 50.f);
+    Titre.setPosition(WINDOW_SIZE_X / 6, 150.f);
     Texture TextureTitre;
     TextureTitre.loadFromFile("texture/Titre.png");
     Titre.setTexture(&TextureTitre);
@@ -95,66 +99,152 @@ int main()
                         RenderWindow Play(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Pokemon");
                         window.close();
                         sound.stop();
+          
                         while (Play.isOpen())
                         {
                             Playground pg;
+                            pg.load();
                             Play.setFramerateLimit(60);
 
-
-                            pg.load();
-
+                            Battle btl;
+                            btl.load();
+                            
 
                             Perso poke("texture/trainer.png", 6, 16);
-                            Trainer trainer("texture/trainer_adv.png", 5, 5);
+                            Trainer trainer("texture/jotaro.png", 55, 15);
+                            battleSprites btlSpr("texture/pikachu.png", 20, 5, "texture/evoli.png", 5, 18);
                             sf::Sprite perso_sprite = poke.sprite();
                             sf::Sprite trainer_sprite = trainer.sprite();
-
+                            sf::Sprite pikachu = btlSpr.pikachu();
+                            sf::Sprite evoli = btlSpr.evoli();
 
                             sf::Clock clock;
+
+                            sf::View view(sf::FloatRect(300.f, 300.f, 352.f, 352.f));
+                            sf::View view2(sf::FloatRect(0.f, 0.f, 960.f, 960.f));
+
                             while (Play.isOpen())
                             {
-                                sf::Event event;
-                                while (Play.pollEvent(event))
-                                {
 
-                                    switch (event.type)
+
+
+                                if (battle == false) {
+                                    sf::Event event;
+                                    while (Play.pollEvent(event))
                                     {
-                                    case sf::Event::Closed:
-                                        Play.close();
-                                        break;
 
-                                    case sf::Event::KeyPressed:
-                                        clock.restart();
+                                        switch (event.type)
+                                        {
+                                        case sf::Event::Closed:
+                                            Play.close();
+                                            break;
 
-                                        poke.move();
+                                        case sf::Event::KeyPressed:
+                                            clock.restart();
 
-                                        break;
+                                            poke.move();
+                                            break;
 
-                                    default:
-                                        poke.pause(poke.last);
-                                        break;
+                                        default:
+                                            poke.pause(poke.last);
+                                            break;
 
+                                        }
                                     }
+
+
+
+                                    if ((poke.GetX() > 1920 - 6 * SIZE_TILE))
+                                        view.setCenter(1920 - 6 * SIZE_TILE + SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+                                    else if ((poke.GetX() < 0 + 6 * SIZE_TILE))
+                                        view.setCenter(0 + 6 * SIZE_TILE - SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+                                    else if ((poke.GetY() > WINDOW_SIZE_Y - 6 * SIZE_TILE))
+                                        view.setCenter(poke.GetX() + SIZE_TILE / 2, WINDOW_SIZE_Y - 6 * SIZE_TILE + SIZE_TILE / 2);
+                                    else if ((poke.GetY() < 0 + 6 * SIZE_TILE))
+                                        view.setCenter(poke.GetX() + SIZE_TILE / 2, 0 + 6 * SIZE_TILE - SIZE_TILE / 2);
+                                    else
+                                        view.setCenter(poke.GetX() + SIZE_TILE / 2, poke.GetY() + SIZE_TILE / 2);
+
+
+                                    Play.setView(view);
+
+
+                                    Play.clear();
+
+                                    Play.draw(pg.GetSprite());
+                                    if (Interaction(poke, trainer, 2))
+                                    {
+                                        battle = true;
+                                        btl.reload();
+                                        Play.setView(view2);
+                                    }
+
+
+
+                                    Play.draw(trainer_sprite);
+                                    Play.draw(poke.sprite());
+
+                                    Play.display();
                                 }
 
 
 
-                                Play.clear();
-                                                                        
-                                Play.draw(pg.GetSprite());
-                                if (Interaction(poke, trainer, 2))
-                                {
-                                    std::cout << "ui";
+                                else {
+                                    sf::Event event;
+                                    while (Play.pollEvent(event))
+                                    {
+
+                                        switch (event.type)
+                                        {
+                                        case sf::Event::Closed:
+                                            Play.close();
+                                            break;
+
+                                        case sf::Event::KeyPressed:
+                                            if (event.key.code == Keyboard::Up)
+                                            {
+                                                btl.MoveUp();
+                                                break;
+                                            }
+
+                                            if (event.key.code == Keyboard::Down)
+                                            {
+                                                btl.MoveDown();
+                                                break;
+                                            }
+                                            if (event.key.code == Keyboard::F)
+                                            {
+                                                battle = false;
+                                            }
+                                            if (event.key.code == Keyboard::Return)
+                                            {
+                                                int x = btl.AttackPressed();
+                                                btl.evoliAttack(x);
+                                                btl.pikachuAttack();
+                                                if (btl.GetpikachuLife() < 1) {
+                                                    std::cout << "You Win" << std::endl;
+                                                    battle = false;
+                                                }
+                                                else if (btl.GetevoliLife() < 1) {
+                                                    std::cout << "You Lose" << std::endl;
+                                                    battle = false;
+                                                }
+                                            }
+                                            break;
+
+                                        default:
+                                            break;
+
+                                        }
+                                    }
+                                    Play.clear();
+                                    Play.draw(btl.GetSprite());
+                                    btl.draw(Play);
+                                    Play.draw(pikachu);
+                                    Play.draw(evoli);
+                                    Play.display();
                                 }
-
-
-
-                                Play.draw(trainer_sprite);
-                                Play.draw(perso_sprite);
-
-
-
-                                Play.display();
+                                
                             }
 
 
@@ -163,31 +253,29 @@ int main()
 
                     if (x == 1)
                     {
-                        RenderWindow Options(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Options");
-                        while (Options.isOpen())
-                        {
-                            Event aevent;
-                            while (Options.pollEvent(aevent))
-                            {
-                                Event aevent;
-                                while (Options.pollEvent(aevent)) {
-                                    if (aevent.type == Event::Closed)
-                                    {
-                                        Options.close();
-                                    }
-                                    if (aevent.type == Event::KeyPressed)
-                                    {
-                                        if (aevent.key.code == Keyboard::Escape)
-                                        {
-                                            Options.close();
-                                        }
-                                    }
-                                }
-                                //Play.close();
-                                Options.clear();
-                                Options.display();
-                            }
-                        }
+                        //RenderWindow Options(VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "Options");
+                        //while (Options.isOpen())
+                        //{
+                        //    Event event;
+                        //    while (Options.pollEvent(event))
+                        //    {
+                        //        Event event;
+                        //        switch (event.type) {
+                        //        case Event::Closed :                                    
+                        //                Options.close();  
+                        //                break;
+                        //        case Event::KeyPressed :
+                        //                if (event.key.code == Keyboard::Escape) {
+                        //                    Options.close();
+                        //                }
+                        //        default :
+                        //            break;
+                        //        }
+                        //        //Play.close();
+                        //        Options.clear();
+                        //        Options.display();
+                        //    }
+                        //}
 
                     }
                     if (x == 2)

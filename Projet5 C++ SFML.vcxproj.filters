@@ -10,6 +10,8 @@
     <ClCompile Include="Perso.cpp" />
     <ClCompile Include="Playground.cpp" />
     <ClCompile Include="Trainer.cpp" />
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="battleSprites.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="const.h" />
@@ -23,6 +25,8 @@
     <ClInclude Include="Playground.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Trainer.h" />
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="battleSprites.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="map_test.tmj" />
